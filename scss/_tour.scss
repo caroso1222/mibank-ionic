@@ -1,0 +1,24 @@
+.tour-div{
+	.slide{
+
+		&.one{
+
+		}
+
+		&.two{
+
+		}
+
+		&.three{
+			background-color: #333333;
+		}
+
+	}
+
+	.slider-pager{
+		bottom: 0px;
+		padding-top: 15px;
+		height: 44px;
+		background-color: #f0f0f0;
+	}
+}

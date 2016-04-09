@@ -132,6 +132,14 @@
       top: 2px;
       left: 2px; }
 
+.tour-div .slide.three {
+  background-color: #333333; }
+.tour-div .slider-pager {
+  bottom: 0px;
+  padding-top: 15px;
+  height: 44px;
+  background-color: #f0f0f0; }
+
 body {
   font-family: 'Proxima';
   -webkit-font-smoothing: antialiased;
