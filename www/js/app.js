@@ -38,6 +38,18 @@
       templateUrl: 'templates/tabs.html'
     })
 
+    .state('signup', {
+      url: '/signup',
+      templateUrl: 'templates/signup.html',
+      controller: 'SignupCtrl'
+    })
+
+    .state('chat', {
+      url: '/chat',
+      templateUrl: 'templates/chat.html',
+      controller: 'ChatCtrl'
+    })
+
     // .state('tab.sessions', {
     //   url: "/sessions",
     //   views: {
@@ -100,7 +112,8 @@
     });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/tab/dash');
-    //$urlRouterProvider.otherwise('/app/sessions');
+    //$urlRouterProvider.otherwise('/tab/dash');
+    //$urlRouterProvider.otherwise('/signup');
+    $urlRouterProvider.otherwise('/chat');
 
   });

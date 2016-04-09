@@ -13,10 +13,47 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 
 
+
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 400;
+    src: url('../../../fonts/ProximaNovaRegular.eot');
+    src: url('../../../fonts/ProximaNovaRegular.eot') format('embedded-opentype'),
+         url('../../../fonts/ProximaNovaRegular.woff2') format('woff2'),
+         url('../../../fonts/ProximaNovaRegular.woff') format('woff'),
+         url('../../../fonts/ProximaNovaRegular.ttf') format('truetype'),
+         url('../../../fonts/ProximaNovaRegular.svg#ProximaNovaRegular') format('svg');
+}
+
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 600;
+    src: url('../../../fonts/ProximaNovaSemibold.eot');
+    src: url('../../../fonts/ProximaNovaSemibold.eot') format('embedded-opentype'),
+         url('../../../fonts/ProximaNovaSemibold.woff2') format('woff2'),
+         url('../../../fonts/ProximaNovaSemibold.woff') format('woff'),
+         url('../../../fonts/ProximaNovaSemibold.ttf') format('truetype'),
+         url('../../../fonts/ProximaNovaSemibold.svg#ProximaNovaSemibold') format('svg');
+}
+
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 700;
+    src: url('../../../fonts/ProximaNovaBold.eot');
+    src: url('../../../fonts/ProximaNovaBold.eot') format('embedded-opentype'),
+         url('../../../fonts/ProximaNovaBold.woff2') format('woff2'),
+         url('../../../fonts/ProximaNovaBold.woff') format('woff'),
+         url('../../../fonts/ProximaNovaBold.ttf') format('truetype'),
+         url('../../../fonts/ProximaNovaBold.svg#ProximaNovaBold') format('svg');
+}
+
+
+
 // Base
 // -------------------------------
 
-$font-family-sans-serif:           '-apple-system', "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+//$font-family-sans-serif:           '-apple-system', "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !default;
+$font-family-sans-serif:           "Proxima", "Roboto", "Segoe UI", sans-serif !default;
 
 $font-family-light-sans-serif:    '-apple-system', "HelveticaNeue-Light", "Roboto-Light", "Segoe UI-Light", sans-serif-light !default;
 $font-family-serif:               serif !default;

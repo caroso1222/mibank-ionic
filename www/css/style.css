@@ -1,1 +1,103 @@
-/* Empty. Add your own CSS if you like */
+.signup-div {
+  background-color: #F6F6F6; }
+  .signup-div .container {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 20px; }
+  .signup-div input.line-input {
+    border: none;
+    border-bottom: 1px solid #d4d4d4;
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: transparent;
+    padding-bottom: 4px;
+    font-size: 15px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out; }
+    .signup-div input.line-input:focus {
+      border-bottom: 1px solid #6464D0; }
+  .signup-div .btn-send {
+    width: 100%;
+    height: 45px;
+    margin-top: 10px; }
+  .signup-div .prefer {
+    display: block;
+    text-align: center;
+    margin-top: 19px;
+    color: #A9A9A9; }
+  .signup-div .facebook-sign-in {
+    background-color: #3B5998;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    padding-top: 5px;
+    padding-bottom: 2px; }
+  .signup-div .img-signup {
+    position: relative; }
+  .signup-div .hero-img {
+    position: relative;
+    display: table-cell;
+    vertical-align: center; }
+  .signup-div .logo-div {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: table;
+    text-align: center;
+    margin: auto; }
+  .signup-div .cheesy {
+    display: block;
+    font-size: 16px;
+    color: white;
+    font-weight: 700;
+    margin-top: 5px; }
+
+.chat-div .chat-input-div {
+  width: 100%;
+  height: 100%;
+  background-color: #DDDCE9;
+  position: relative;
+  bottom: 0px; }
+
+body {
+  font-family: 'Proxima';
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  color: #333;
+  font-weight: 400; }
+
+input[type=text], input[type=password] {
+  color: #333333; }
+
+input[type=submit].btn-send {
+  height: 48px;
+  background: none;
+  border: none;
+  background-image: -webkit-linear-gradient(left, #886de8 0, #6464d0 100%, transparent 100%);
+  background-image: linear-gradient(to right, #886de8 0, #6464d0 100%, transparent 100%);
+  color: white;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 15px; }
+
+.btn-dropshadow {
+  -webkit-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.46);
+  -moz-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.46);
+  box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.46); }
+
+.mibank-btn {
+  height: 48px;
+  background: none;
+  border: none;
+  background-image: -webkit-linear-gradient(left, #886de8 0, #6464d0 100%, transparent 100%);
+  background-image: linear-gradient(to right, #886de8 0, #6464d0 100%, transparent 100%);
+  color: white;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 15px; }
+
+/*# sourceMappingURL=style.css.map */

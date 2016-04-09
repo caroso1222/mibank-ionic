@@ -1,0 +1,83 @@
+.signup-div{
+
+	background-color: #F6F6F6;
+	.container{
+		padding-left: 35px;
+		padding-right: 35px;
+		padding-top: 20px;
+	}
+
+	input.line-input{
+		border: none;
+		border-bottom: 1px solid #d4d4d4;
+		width: 100%;
+		margin-bottom: 15px;
+		background-color: transparent;
+		padding-bottom: 4px;
+		font-size: 15px;
+		@include transition(all 0.5s ease-in-out);
+		&:focus{
+			border-bottom: 1px solid #6464D0;
+
+		}
+	}
+ 
+	.btn-send{
+		width: 100%;
+		height: 45px;
+		margin-top: 10px;
+	}
+
+	.prefer{
+		display: block;
+		text-align: center;
+		margin-top: 19px;
+		color: #A9A9A9;
+	}
+
+	.facebook-sign-in{
+		background-color: #3B5998;
+		color: white;
+		font-weight: 600;
+		font-size: 15px;
+		padding-top: 5px;
+		padding-bottom: 2px;
+	}
+
+	.img-signup{
+		position: relative;
+	}
+
+	.hero-img{
+		position: relative;
+		display: table-cell;
+		vertical-align: center;
+	}
+
+	.logo-img{
+
+	}
+
+	.logo-div{
+		position: absolute;
+		width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: table;
+    text-align: center;
+    margin: auto;
+
+	}
+
+	.cheesy{
+		display: block;
+		font-size: 16px;
+		color: white;
+		font-weight: 700;
+		margin-top: 5px;
+	}
+}
+
+

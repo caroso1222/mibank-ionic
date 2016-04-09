@@ -1,0 +1,44 @@
+@import "bourbon/bourbon";
+@import "signup";
+@import "chat";
+
+body{
+	font-family: 'Proxima';
+	-webkit-font-smoothing: antialiased;
+	-webkit-overflow-scrolling: touch;
+	color: #333;
+	font-weight: 400;
+}
+
+input[type=text], input[type=password],{
+	color: #333333;
+}
+
+input[type=submit].btn-send{
+	height: 48px;
+	background: none;
+	border: none;
+	@include background-image(linear-gradient(left, #886de8 0, #6464d0 100%, transparent 100%));
+	color: white;
+	border-radius: 3px;
+	font-weight: 600;
+	font-size: 15px;
+}
+
+.btn-dropshadow{
+
+	-webkit-box-shadow: 0px 10px 38px -6px rgba(0,0,0,0.46);
+-moz-box-shadow: 0px 10px 38px -6px rgba(0,0,0,0.46);
+box-shadow: 0px 10px 38px -6px rgba(0,0,0,0.46);
+}
+
+.mibank-btn{
+	height: 48px;
+	background: none;
+	border: none;
+	@include background-image(linear-gradient(left, #886de8 0, #6464d0 100%, transparent 100%));
+	color: white;
+	border-radius: 3px;
+	font-weight: 600;
+	font-size: 15px;
+}
