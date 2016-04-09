@@ -9,32 +9,60 @@ angular.module('starter.controllers')
 // })
 
 .controller('ChatCtrl', function($scope, $rootScope, $http) {
-	console.log("chat ctrl loaded");
 	$scope.messages = [];
-	var message = {
-		"who":"mibank",
-		"showavatar":true,
-		"value":"Hola. He sido entrenado durante siglos para este momento. Puedes preguntarme lo que sea, pero ten en cuenta que estoy autorizado a hablar solamente de temas financieros."
-	};
-	$scope.messages.push(message);
-	message = {
-		"who":"user",
-		"showavatar":true,
-		"value":"Hola mibank"
-	};
-	//$scope.messages.push(message);
+	console.log("chat ctrl loaded");
+	appendBotTextMessage("Hola. Pregúntame lo que sea.",true);
+
+	appendMultioptionQuestion(false);
+	appendUserMessage("Hola",true);
+
 
 	$scope.newUserMessage = function(){
+		appendUserMessage($scope.input.chat, true);
+		$scope.input.chat = "";
+		//sendTextMessage($scope.input.chat);
+		appendMultioptionQuestion(true);
+	}
 
+	function appendMultioptionQuestion(showAvatar){
+		var messageReceived = {
+			"buttons":[
+			{ "code":"1", "value":"Que alguien confiable me ayude" },
+			{ "code":"2", "value":"Que alguien me colabore" },
+			{ "code":"3", "value":"Solo necesito un cajero" },
+			{ "code":"4", "value":"No me quiero mover" }
+			]	
+		}
+
+		var message_json = {
+			"who":"mibank",
+			"showavatar":showAvatar,
+			"value":messageReceived.buttons,
+			"type":"multioption"
+		};
+		$scope.messages.push(message_json);
+	}
+
+	function appendUserMessage(message, showAvatar){
 		var message = {
 			"who":"user",
-			"showavatar":true,
-			"value":$scope.input.chat
+			"showavatar":showAvatar,
+			"value":message
 		};
 		$scope.messages.push(message);
-		$scope.input.chat = "";
+	}
 
+	function appendBotTextMessage(message, showAvatar){
+		var message_json = {
+			"who":"mibank",
+			"showavatar":showAvatar,
+			"value":message,
+			"type":"text"
+		};
+		$scope.messages.push(message_json);
+	}
 
+	function sendTextMessage(message){
 		var json_data = {
 			"text":$scope.input.chat,
 			"lat":"1.22331",
@@ -53,14 +81,7 @@ angular.module('starter.controllers')
 		{
 			console.log("success");
 			console.log(data);
-
-			var message = {
-				"who":"mibank",
-				"showavatar":true,
-				"value":data.message
-			};
-			$scope.messages.push(message);
-			$scope.input.chat = "";
+			appendBotTextMessage(data.message, true);
 
 		}).
 		error(function(data, status, headers, config) 
@@ -68,10 +89,6 @@ angular.module('starter.controllers')
 			console.log("error");
 			console.log(data);
 		});
-	}
-
-	function printATMQuestion(){
-		
 	}
 
 });

@@ -7,14 +7,14 @@
 
 			.btn-next.white{
 				background: white;
-    border: none;
-    height: 44px;
-    border-radius: 3px;
-    padding: 12px 25px;
-    font-weight: 600;
-    color: #7E6DE8;
-    margin-top: 40px;
-    font-size: 15px;
+				border: none;
+				height: 44px;
+				border-radius: 3px;
+				padding: 12px 25px;
+				font-weight: 600;
+				color: #7E6DE8;
+				margin-top: 40px;
+				font-size: 15px;
 			}
 
 			.left-circle{
@@ -67,7 +67,46 @@
 		}
 
 		&.two{
+			background-color: #f0f0f0;
 
+			.inner-div{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				display: inline-block;
+				left: 0;
+				text-align: center;
+				right: 0;
+				margin: auto;
+				display: table;
+
+				img{
+					margin-bottom: 15px;
+				}
+
+				.btn-send{
+					display: inline-block;
+			margin-top: 10px;
+			padding: 12px 36px;
+			height: initial;
+
+				}
+			}
+
+			h3{
+				font-size: 17px;
+				font-weight: 600;
+				color: #372E4A;
+			}
+
+			p{
+				padding-right: 30px;
+				padding-left: 30px;
+				font-size: 16px;
+				line-height: 27px;
+				margin-top: 14px;
+				color: #565656;
+			}
 		}
 
 		&.three{

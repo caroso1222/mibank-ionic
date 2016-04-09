@@ -133,6 +133,39 @@
       position: relative;
       top: 2px;
       left: 2px; }
+  .chat-div .multioption-div {
+    display: inline-block;
+    max-width: 80%;
+    margin-left: 7px; }
+    .chat-div .multioption-div .lbl {
+      width: 100%;
+      margin-bottom: 5px;
+      display: block;
+      font-size: 12px;
+      color: #909090;
+      font-weight: 600;
+      padding-left: 4px; }
+    .chat-div .multioption-div .option {
+      width: 40%;
+      margin-left: 3px;
+      margin-right: 3px;
+      margin-bottom: 6px;
+      display: inline-block;
+      background-color: #38D9A4;
+      color: white;
+      border: 1px solid #38D9A4;
+      border-bottom: 3px solid #1D956D;
+      border-radius: 3px;
+      padding: 5px;
+      font-weight: 600;
+      position: relative; }
+      .chat-div .multioption-div .option:focus, .chat-div .multioption-div .option:active {
+        border-bottom: 2px solid #1D956D;
+        top: 1px; }
+      .chat-div .multioption-div .option.activated {
+        border-bottom: 2px solid #1D956D;
+        background-color: #2CC794;
+        top: 1px; }
 
 .tour-div .slide.one {
   background-color: #7E6DE8;
@@ -182,6 +215,36 @@
     font-size: 21px;
     font-weight: 600;
     color: white; }
+.tour-div .slide.two {
+  background-color: #f0f0f0; }
+  .tour-div .slide.two .inner-div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: inline-block;
+    left: 0;
+    text-align: center;
+    right: 0;
+    margin: auto;
+    display: table; }
+    .tour-div .slide.two .inner-div img {
+      margin-bottom: 15px; }
+    .tour-div .slide.two .inner-div .btn-send {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 36px;
+      height: initial; }
+  .tour-div .slide.two h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #372E4A; }
+  .tour-div .slide.two p {
+    padding-right: 30px;
+    padding-left: 30px;
+    font-size: 16px;
+    line-height: 27px;
+    margin-top: 14px;
+    color: #565656; }
 .tour-div .slide.three {
   background-color: #333333; }
 .tour-div .slider-pager {

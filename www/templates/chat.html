@@ -3,13 +3,28 @@
 <div class = "chat-wrapper">
   <div ng-repeat = "message in messages">
     <div ng-if = "message.who == 'mibank'" class = "msg-mibank-div">
+      <div ng-if = "message.type == 'text'">
         <img src="img/mibank-avatar.png">
         <span class = "msg-mibank">{{message.value}}</span>
-    </div>
-    <div ng-if = "message.who == 'user'" class = "msg-user-div">
-        <span class = "msg-user">{{message.value}}</span>
+      </div>
+      <div ng-if = "message.type == 'multioption'" >
+
         <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
         <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
+        <div class = "multioption-div">
+        <span class = "lbl">Selecciona alguna de las opciones</span>
+        <button ng-repeat = "option in message.value" class = "option">
+          {{option.value}}
+        </button>
+          
+        </div>
+        
+      </div>
+    </div>
+    <div ng-if = "message.who == 'user'" class = "msg-user-div">
+      <span class = "msg-user">{{message.value}}</span>
+      <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
+      <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
     </div>
   </div>
   
