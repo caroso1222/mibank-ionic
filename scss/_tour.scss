@@ -5,6 +5,18 @@
 			background-color: #7E6DE8;
 			overflow: hidden;
 
+			.btn-next.white{
+				background: white;
+    border: none;
+    height: 44px;
+    border-radius: 3px;
+    padding: 12px 25px;
+    font-weight: 600;
+    color: #7E6DE8;
+    margin-top: 40px;
+    font-size: 15px;
+			}
+
 			.left-circle{
 				position: absolute;
 				top: 100px;
@@ -22,25 +34,26 @@
 			}
 
 			.welcome-message{
-position: absolute;
-    top: 0;
-    bottom: 0;
-    display: inline-block;
-    left: 0;
-    right: 0;
-    margin: auto;
-    display: table;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				display: inline-block;
+				left: 0;
+				text-align: center;
+				right: 0;
+				margin: auto;
+				display: table;
 
-    p{
-    	padding-left: 30px;
-    padding-right: 30px;
-    text-align: center;
-    color: white;
-    opacity: 0.7;
-    font-size: 17px;
-    line-height: 25px;
-    margin-top: 20px;
-    }
+				p{
+					padding-left: 30px;
+					padding-right: 30px;
+					text-align: center;
+					color: white;
+					opacity: 0.7;
+					font-size: 17px;
+					line-height: 25px;
+					margin-top: 20px;
+				}
 			}
 
 			h2{

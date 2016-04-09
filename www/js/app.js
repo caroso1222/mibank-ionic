@@ -25,7 +25,7 @@
 
   .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-    
+
   $httpProvider.defaults.headers.common = {};
   $httpProvider.defaults.headers.post = {};
   $httpProvider.defaults.headers.put = {};
@@ -125,8 +125,8 @@
 
     // if none of the above states are matched, use this as the fallback
     //$urlRouterProvider.otherwise('/tab/dash');
-    //$urlRouterProvider.otherwise('/signup');
+    $urlRouterProvider.otherwise('/signup');
     //$urlRouterProvider.otherwise('/chat');
-    $urlRouterProvider.otherwise('/tour');
+    //$urlRouterProvider.otherwise('/tour');
 
   });

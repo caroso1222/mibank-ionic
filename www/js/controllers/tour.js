@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers')
 
-.controller('TourCtrl', function($scope, $rootScope, $http) {
+.controller('TourCtrl', function($scope, $rootScope, $http, $state) {
 
 	$scope.registrarCliente = function(){
 		console.log("signin up...");
@@ -28,8 +28,12 @@ angular.module('starter.controllers', [])
 			console.log("error");
 			console.log(data);
 		});
-
 	}
+
+		$scope.goToChat = function(){
+			console.log("goign to chat");
+			$state.go("chat");
+		}
 
 
 // 	$http.get('https://cors-test.appspot.com/test').then(function(resp) {
