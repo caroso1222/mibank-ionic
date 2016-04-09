@@ -1,4 +1,8 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['ngResource'])
+
+.factory('Session',function ($resource){
+  return $resource('http://localhost:5000/sessions/:sessionId');
+})
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
