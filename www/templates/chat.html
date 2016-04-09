@@ -1,15 +1,17 @@
 <ion-view view-title="Chat" class = "chat-div">
 <ion-content>
 <div class = "chat-wrapper">
-<div ng-repeat = "message in messages">
-  <div ng-if = "message.who == 'mibank'">
-  <img src="img/mibank-avatar.png">
-  {{message.value}}
+  <div ng-repeat = "message in messages">
+    <div ng-if = "message.who == 'mibank'" class = "msg-mibank-div">
+        <img src="img/mibank-avatar.png">
+        <span class = "msg-mibank">{{message.value}}</span>
+    </div>
+    <div ng-if = "message.who == 'user'" class = "msg-user-div">
+        <span class = "msg-user">{{message.value}}</span>
+        <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
+        <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
+    </div>
   </div>
-  <div ng-if = "message.who == 'user'">
-  {{message.value}}
-  </div>
-</div>
   
 </div>
 
@@ -21,7 +23,7 @@
 <div class = "chat-input-div">
   <form>
     <input type = "text" class = "user-input" ng-model = "input.chat"></input>
-    <button class = "send-btn btn-dropshadow"><i class = "icon ion-android-send"></i></button>
+    <button class = "send-btn btn-dropshadow" ng-click = "newUserMessage()"><i class = "icon ion-android-send"></i></button>
   </form>
 </div>
 </ion-footer-bar>
