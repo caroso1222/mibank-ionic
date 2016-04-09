@@ -1,6 +1,12 @@
 .chat-div{
+
+	.chat-wrapper{
+		padding: 15px;
+	}
+
 	.chat-footer{
-		
+		padding: 0;
+		height: 60px;
 	}
 	.chat-input-div{
 		width: 100%;
@@ -8,6 +14,39 @@
 		background-color: #DDDCE9;
 		position: relative;
 		bottom: 0px;
+		padding: 9px;
+	}
+	.user-input{
+		width: 80%;
+		border: none;
+		border-radius: 3px;
+		height: 43px;
+		padding-left: 13px;
+		padding-right: 13px;
+		color: #333333;
+		display: inline;
+		font-size: 16px;
 	}
 
+	.send-btn{
+
+		width: 17%;
+		display: inline;
+		margin-left: 4px;
+		background: none;
+		border: none;
+		@include background-image(linear-gradient(left, #886de8 0, #6464d0 100%, transparent 100%));
+		height: 38px;
+		border-radius: 4px;
+
+		i{
+			color: white;
+			position: relative;
+			top: 2px;
+			left: 2px;
+			&:focus{
+
+			}
+		}
+	}
 }

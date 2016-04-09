@@ -10,4 +10,15 @@ angular.module('starter.controllers', [])
 
 .controller('ChatCtrl', function($scope, $rootScope) {
   console.log("chat ctrl loaded");
+  $scope.messages = [];
+  var message = {
+  	"who":"mibank",
+  	"value":"Hola user"
+  };
+  $scope.messages.push(message);
+  message = {
+  	"who":"user",
+  	"value":"Hola mibank"
+  };
+  $scope.messages.push(message);
 });
