@@ -8,11 +8,11 @@
   </div>
 </div>
 <div class = "container">
-<form name="myformname">
-  <input class = "line-input" placeholder="Nombre" type = "text"></input>
-  <input class = "line-input" placeholder="Email" type = "text"></input>
-  <input class = "line-input" placeholder="Contraseña" type = "password"></input>
-  <input type = "submit" class = "btn-send btn-dropshadow mibank-btn" value = "Registrar" ng-click = "goToTour()"></input>
+<form name="signupform" ng-submit="signUpUser(signupform)" novalidate>
+  <input class = "line-input" placeholder="Nombre" name="name" type = "text" ng-model="signup.name" ng-class = "{'error-required':submitted&&signupform.name.$error.required}" required></input>
+  <input class = "line-input" placeholder="Email" type = "text" ng-model="signup.email" name="email" ng-class = "{'error-required':submitted&&signupform.email.$error.required}" required></input>
+  <input class = "line-input" placeholder="Contraseña" type = "password" ng-model="signup.password" ng-class = "{'error-required':submitted&&signupform.password.$error.required}" name="password" required></input>
+  <input type = "submit" class = "btn-send btn-dropshadow mibank-btn" value = "Registrar"></input>
 </form>
 
   <span class = "prefer">o si prefieres</span>

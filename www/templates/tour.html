@@ -1,10 +1,11 @@
+
 <ion-slide-box on-slide-changed="slideHasChanged($index)" class = "tour-div">
 <ion-slide class= "slide one">
 <img src="img/left-circles.png" class = "left-circle">
 <img src="img/right-circles.png" class = "right-circle">
 <img src="img/sparkles.png" class = "sparkles">
 <div class = "welcome-message">
-	<h2>¡Bienvenido Carlos!</h2>
+	<h2>¡Bienvenido {{firstName}}!</h2>
 	<p>Esperamos mucho tiempo para este momento. Pregúntanos cualquier tema financiero y haremos lo mejor para responderte.</p>
 	<button class = "btn-next white btn-dropshadow" ng-click = "goToChat()">¡Quiero empezar ya!</button>
 </div>

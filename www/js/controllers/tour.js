@@ -1,6 +1,10 @@
 angular.module('starter.controllers')
 
-.controller('TourCtrl', function($scope, $rootScope, $http, $state) {
+.controller('TourCtrl', function($scope, $rootScope, $http, $state, $stateParams) {
+	console.log("getting this name from params:");
+	console.log($stateParams.firstName);
+
+	$scope.firstName = $stateParams.firstName;
 
 	$scope.registrarCliente = function(){
 		console.log("signin up...");
@@ -24,7 +28,7 @@ angular.module('starter.controllers')
 			console.log(data);
 		}).
 		error(function(data, status, headers, config) 
-		{
+		{	
 			console.log("error");
 			console.log(data);
 		});
@@ -32,7 +36,7 @@ angular.module('starter.controllers')
 
 		$scope.goToChat = function(){
 			console.log("goign to chat");
-			$state.go("chat");
+			$state.go("chat",{firstName:$stateParams.firstName});
 		}
 
 // 	$http.get('https://cors-test.appspot.com/test').then(function(resp) {

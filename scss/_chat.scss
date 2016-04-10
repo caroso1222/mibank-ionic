@@ -30,6 +30,8 @@
 				.name{
 					font-size: 18px;
 					font-weight: 800;
+					padding-left: 15px;
+					padding-right: 15px;
 				}
 
 				.direccion{
@@ -117,6 +119,8 @@
 			top: 9px;
 			font-weight: 600;
 			font-size: 13px;
+			width: 100%;
+			text-align: left;
 		}
 
 		.waze{
@@ -145,6 +149,10 @@
 	padding: 15px;
 	position: absolute;
 	bottom: 0px;
+
+	&.no-bottom{
+		bottom: initial !important;
+	}
 
 	.msg-mibank-div{
 		margin-bottom: 20px;

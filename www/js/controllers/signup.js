@@ -9,9 +9,17 @@ angular.module('starter.controllers',[])
 // })
 
 .controller('SignupCtrl', function($scope, $rootScope, $state) {
-  console.log("signup ctrl loaded");
+  $scope.signup = [];
+  $scope.signupform;
 
-  $scope.goToTour = function(){
-    $state.go('tour');
+  $scope.signUpUser = function(form){
+  	$scope.submitted = true;
+  	if (form.$valid){
+  		console.log("the name is:");
+  		console.log($scope.signup.name);
+  		$state.go('tour',{firstName:$scope.signup.name});
+  	}
   }
+
+
 });

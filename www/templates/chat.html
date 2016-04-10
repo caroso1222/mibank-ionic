@@ -1,6 +1,6 @@
 <ion-view view-title="Chat" class = "chat-div">
 <ion-content>
-<div class = "chat-wrapper">
+<div class = "chat-wrapper" id = "chatwrapper">
   <div ng-repeat = "message in messages">
     <div ng-if = "message.who == 'mibank'" class = "msg-mibank-div">
       <div ng-if = "message.type == 'text'">
@@ -24,15 +24,15 @@
           <div class = "atm-img-div">
             <div class = "inner">
             <div class = "overlay"></div>
-              <img src="img/sucursal.jpg">
+              <img ng-src={{message.value.url_image}}>
             </div>
             <div class = "circle-bank">
               <img src="img/bancolombia.png">
             </div>
             <div class = "img-info">
-              <span class = "type">Sucursal</span>
-              <span class = "name">Viva Palmas</span>
-              <span class = "direccion">Calle 100 #9A - 45</span>
+              <span class = "type">{{message.value.type}}</span>
+              <span class = "name">{{message.value.name}}</span>
+              <span class = "direccion">{{message.value.address}}</span>
             </div>
           </div>
           <div class = "atm-info">

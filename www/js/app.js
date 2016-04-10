@@ -5,7 +5,7 @@
   // the 2nd parameter is an array of 'requires'
   // 'starter.services' is found in services.js
   // 'starter.controllers' is found in controllers.js
-  angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+  angular.module('starter', ['ionic', 'starter.controllers', 'starter.services','ngCordova'])
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -26,10 +26,10 @@
   .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
 
-  $httpProvider.defaults.headers.common = {};
-  $httpProvider.defaults.headers.post = {};
-  $httpProvider.defaults.headers.put = {};
-  $httpProvider.defaults.headers.patch = {};
+    $httpProvider.defaults.headers.common = {};
+    $httpProvider.defaults.headers.post = {};
+    $httpProvider.defaults.headers.put = {};
+    $httpProvider.defaults.headers.patch = {};
 
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
@@ -52,12 +52,14 @@
 
     .state('chat', {
       url: '/chat',
+      params: {firstName:null},
       templateUrl: 'templates/chat.html',
       controller: 'ChatCtrl'
     })
 
     .state('tour', {
       url: '/tour',
+      params: {firstName:null},
       templateUrl: 'templates/tour.html',
       controller: 'TourCtrl'
     })

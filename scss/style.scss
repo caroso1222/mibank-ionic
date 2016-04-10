@@ -15,6 +15,10 @@ input[type=text], input[type=password],{
 	color: #333333;
 }
 
+input.error-required{
+		border-bottom: 1px solid #D63535 !important;
+	}
+
 input[type=submit].btn-send{
 	height: 48px;
 	background: none;

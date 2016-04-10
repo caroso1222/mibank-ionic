@@ -81,7 +81,9 @@
           display: block; }
         .chat-div .card-div .atm-img-div .img-info .name {
           font-size: 18px;
-          font-weight: 800; }
+          font-weight: 800;
+          padding-left: 15px;
+          padding-right: 15px; }
         .chat-div .card-div .atm-img-div .img-info .direccion {
           font-size: 11px;
           font-weight: 600;
@@ -147,7 +149,9 @@
           left: 16px;
           top: 9px;
           font-weight: 600;
-          font-size: 13px; }
+          font-size: 13px;
+          width: 100%;
+          text-align: left; }
         .chat-div .card-div .atm-info .footer-info .waze {
           float: right;
           border-left: 1px solid #CFC9C9;
@@ -165,6 +169,8 @@
     padding: 15px;
     position: absolute;
     bottom: 0px; }
+    .chat-div .chat-wrapper.no-bottom {
+      bottom: initial !important; }
     .chat-div .chat-wrapper .msg-mibank-div {
       margin-bottom: 20px; }
       .chat-div .chat-wrapper .msg-mibank-div img {
@@ -363,6 +369,9 @@ body {
 
 input[type=text], input[type=password] {
   color: #333333; }
+
+input.error-required {
+  border-bottom: 1px solid #D63535 !important; }
 
 input[type=submit].btn-send {
   height: 48px;
