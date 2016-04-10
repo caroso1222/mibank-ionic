@@ -8,13 +8,14 @@
 	//   $scope.session = Session.get({sessionId: $stateParams.sessionId});
 	// })
 
-	.controller('ChatCtrl', function($scope, $rootScope, $http, $cordovaGeolocation, $stateParams) {
+	.controller('ChatCtrl', function($scope, $ionicPlatform, $rootScope, $http, $cordovaGeolocation, $stateParams, $cordovaInAppBrowser) {
+	//	.controller('ChatCtrl', function($scope, $ionicPlatform, $rootScope, $http, $cordovaGeolocation, $stateParams) {
 		$scope.messages = [];
 		console.log("chat ctrl loaded");
-		appendBotTextMessage("Hola "+ $stateParams.firstName +"! Pregúntame lo que sea.",true);
+		appendBotTextMessage("Hola "+ $stateParams.firstName +"! Pregúntame lo que quieras.",true);
 		console.log("this is the name");
 		console.log($stateParams.firstName);
-		appendECard("shidf",false);
+		//appendECard("shidf",false);
 
 		//appendMultioptionQuestion(false);
 		//appendUserMessage("Hola",true);
@@ -23,6 +24,24 @@
 		$scope.scrollable = false;
 		$scope.currentLat = "";
 		$scope.currentLong = "";
+
+		var options = {
+			location: 'yes',
+			clearcache: 'yes',
+			toolbar: 'no'
+		};
+
+		$ionicPlatform.ready(function() {
+			$scope.openPlayStore = function(){
+				$cordovaInAppBrowser.open('https://play.google.com/store/apps/details?id=com.todo1.mobile&hl=es_419', '_blank', options);
+			}
+			$scope.openIOSStore = function(){
+				$cordovaInAppBrowser.open('https://itunes.apple.com/co/app/bancolombia-app/id565101003?mt=8', '_blank', options);
+			}
+			$scope.openSucursal = function(){
+				$cordovaInAppBrowser.open('http://www.grupobancolombia.com/wps/portal/personas/productos-servicios/canales-servicio/sucursal-web/sucursal-virtual-personas/', '_blank', options);
+			}
+		});
 
 
 		$scope.newUserMessage = function(){
@@ -238,7 +257,6 @@
 				}else{
 					var group5 = ((message.match(/retir/i)) ? true : false);
 					group5 = group5 || ((message.match(/sacar/i)) ? true : false);
-
 
 					var group4 = ((message.match(/deposit/i)) ? true : false);
 					group4 = group4 || ((message.match(/depósit/i)) ? true : false);

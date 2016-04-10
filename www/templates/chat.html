@@ -66,20 +66,20 @@
           </div>
           <div class = "atm-info">
             <div class = "btn-ecard-div" ng-repeat = "channel in message.value.services">
-              <a href = "https://sucursalpersonas.transaccionesbancolombia.com/mua/USER#no-back-button" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'browser'">
+              <a ng-click = "openSucursal()" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'browser'">
                 <span class = "title">Sucursal virtual</span>
                 <span class = "icon-div"><i class ="icon ion-ios-world"></i> </span>
               </a>
-              <a href ="https://play.google.com/store/apps/details?id=com.todo1.mobile&hl=es_419" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
+              <a ng-click = "openPlayStore()" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
                 <span class = "title">Android</span>
                 <span class = "icon-div"><i class ="icon ion-social-android"></i> </span>
               </a>
-              <a href ="https://itunes.apple.com/co/app/bancolombia-app/id565101003?mt=8" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
+              <a  ng-click = "openIOSStore()" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
                 <span class = "title">iOS</span>
                 <span class = "icon-div"><i class ="icon ion-social-apple"></i> </span>
               </a>
-              <a href="tel:01800 09 12345" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
-                <span class = "title">Teléfono</span>
+              <a href="tel:+57-01800-09-12345" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
+                <span class = "title">01 8000 912345</span>
                 <span class = "icon-div"><i class ="icon ion-ios-telephone"></i> </span>
               </a>
             </div>

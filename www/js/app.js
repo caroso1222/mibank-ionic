@@ -23,8 +23,21 @@
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $httpProvider, $cordovaInAppBrowserProvider) {
 
+  //   var defaultOptions = {
+  //   location: 'no',
+  //   clearcache: 'no',
+  //   toolbar: 'no'
+  // };
+
+  // document.addEventListener(function () {
+
+  //   $cordovaInAppBrowserProvider.setDefaultOptions(options)
+
+  // }, false);
+
+  
 
     $httpProvider.defaults.headers.common = {};
     $httpProvider.defaults.headers.post = {};
