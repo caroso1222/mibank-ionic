@@ -103,6 +103,15 @@
 
 
 <ion-footer-bar class = "chat-footer">
+<div class = "writing-icon-div" ng-show = "showWriting">
+  <div class="typing-indicator">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  
+</div>
+
 <div class = "chat-input-div">
   <form>
     <input type = "text" class = "user-input" ng-model = "input.chat"></input>

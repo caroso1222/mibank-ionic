@@ -8,10 +8,12 @@
 	//   $scope.session = Session.get({sessionId: $stateParams.sessionId});
 	// })
 
-	.controller('ChatCtrl', function($scope, $ionicPlatform, $rootScope, $http, $cordovaGeolocation, $stateParams, $cordovaInAppBrowser) {
+	.controller('ChatCtrl', function($scope, $ionicPlatform, $q, $rootScope, $http, $cordovaGeolocation, $stateParams, $cordovaInAppBrowser) {
 	//	.controller('ChatCtrl', function($scope, $ionicPlatform, $rootScope, $http, $cordovaGeolocation, $stateParams) {
 		$scope.messages = [];
 		console.log("chat ctrl loaded");
+
+		
 		appendBotTextMessage("Hola "+ $stateParams.firstName +"! Pregúntame lo que quieras.",true);
 		console.log("this is the name");
 		console.log($stateParams.firstName);
@@ -42,27 +44,32 @@
 			$scope.openSucursal = function(){
 				$cordovaInAppBrowser.open('http://www.grupobancolombia.com/wps/portal/personas/productos-servicios/canales-servicio/sucursal-web/sucursal-virtual-personas/', '_blank', options);
 			}
+
+			$scope.newUserMessage = function(){
+				if($scope.input.chat != ""){
+					var user_input = $scope.input.chat;
+					appendUserMessage($scope.input.chat, true);
+					var posOptions = {timeout: 10000, enableHighAccuracy: false};
+					$cordovaGeolocation
+					.getCurrentPosition(posOptions)
+					.then(function (position) {
+						var lat  = position.coords.latitude;
+						var long = position.coords.longitude;
+						$scope.currentLat = lat + "";
+						$scope.currentLong = long+ "";
+						sendTextMessage(user_input,lat,long, true);
+						$scope.input.chat = "";	
+					}, function(err) {
+						console.log("theres an error");
+					});
+
+					$scope.input.chat = "";	
+				}
+			}
+
 		});
 
 
-		$scope.newUserMessage = function(){
-			if($scope.input.chat != ""){
-				appendUserMessage($scope.input.chat, true);
-				var posOptions = {timeout: 10000, enableHighAccuracy: false};
-				$cordovaGeolocation
-				.getCurrentPosition(posOptions)
-				.then(function (position) {
-					var lat  = position.coords.latitude;
-					var long = position.coords.longitude;
-					$scope.currentLat = lat + "";
-					$scope.currentLong = long+ "";
-					sendTextMessage($scope.input.chat,lat,long, true);
-					$scope.input.chat = "";	
-				}, function(err) {
-					console.log("theres an error");
-				});
-			}
-		}
 
 		function appendMultioptionQuestion(data,showAvatar){
 			var messageReceived = {
@@ -104,54 +111,67 @@
 		}
 
 		function appendATMCard(data,showAvatar){
-			var messageReceived = {
-				"card": {
-					"Type": "CHANNEL_TYPE",
-					"Data": {
-						"Id": 0,
-						"type": "oficina",
-						"name": "",
-						"lat": "",
-						"lng": "",
-						"city": "",
-						"bank_id": 0,
-						"url_image": ""
+			$scope.showWriting = true;
+			var promise = appendATMCardHelper(data,showAvatar);
+			promise.then(function(){$scope.showWriting = false;});
+		}
+
+		function appendATMCardHelper(data,showAvatar){
+			return $q(function(resolve, reject) {
+				setTimeout(function() {
+					var messageReceived = {
+						"card": {
+							"Type": "CHANNEL_TYPE",
+							"Data": {
+								"Id": 0,
+								"type": "oficina",
+								"name": "",
+								"lat": "",
+								"lng": "",
+								"city": "",
+								"bank_id": 0,
+								"url_image": ""
+							}
+						},
+						"status": true
 					}
-				},
-				"status": true
-			}
 
-			var url = data.data.Data.url_image;
-			url = url.replace(/\\/g, "");
-			data.data.Data.url_image = url;
+					var url = data.data.Data.url_image;
+					url = url.replace(/\\/g, "");
+					data.data.Data.url_image = url;
 
-			var type = data.data.Data.type;
-			type = capitalizeFirstLetter(type);
-			data.data.Data.type = type;
+					var type = data.data.Data.type;
+					type = capitalizeFirstLetter(type);
+					data.data.Data.type = type;
 
-			var address = data.data.Data.address;
-			address = address.replace("BOGOTA","");
-			address = address.replace("BOGOTÁ","");
-			address = address.replace("Bogotá","");
-			address = address.replace("Bogota","");
-			address = address.replace("COLOMBIA","");
-			address = address.replace("COlOMBIA","");
-			address = address.replace("Colombia","");
-			data.data.Data.address = address;
+					var address = data.data.Data.address;
+					address = address.replace("BOGOTA","");
+					address = address.replace("BOGOTÁ","");
+					address = address.replace("Bogotá","");
+					address = address.replace("Bogota","");
+					address = address.replace("COLOMBIA","");
+					address = address.replace("COlOMBIA","");
+					address = address.replace("Colombia","");
+					data.data.Data.address = address;
 
-			var name = data.data.Data.name;
-			name = toTitleCase(name);
-			data.data.Data.name = name;
+					var name = data.data.Data.name;
+					name = toTitleCase(name);
+					data.data.Data.name = name;
 
-			var message_json = {
-				"who":"mibank",
-				"showavatar":showAvatar,
-				"value":data.data.Data,
-				"type":"card"
-			};
-			$scope.messages.push(message_json);
-			$scope.sizeOfContent += 252;
-
+					var message_json = {
+						"who":"mibank",
+						"showavatar":showAvatar,
+						"value":data.data.Data,
+						"type":"card"
+					};
+					$scope.messages.push(message_json);
+					$scope.sizeOfContent += 252;
+					resolve("message appended");
+					setTimeout(function(){ 
+						jQuery(".scroll-content").scrollTop(3000);
+					},400);
+				}, 3000);
+			});
 		}
 
 		function appendUserMessage(message, showAvatar){
@@ -170,19 +190,35 @@
 			//jQuery(".scroll-content").scrollTop(10000);
 
 			setTimeout(function(){ 
-				jQuery(".scroll-content").scrollTop(1000);
+				jQuery(".scroll-content").scrollTop(3000);
 			},400);
 		}
 
 		function appendBotTextMessage(message, showAvatar){
-			var message_json = {
-				"who":"mibank",
-				"showavatar":showAvatar,
-				"value":message,
-				"type":"text"
-			};
-			$scope.messages.push(message_json);
-			$scope.sizeOfContent += 70;
+			$scope.showWriting = true;
+			var promise = appendBotTextHelper(message, showAvatar);
+			promise.then(function(){$scope.showWriting = false;});
+		}
+
+		function appendBotTextHelper(message,showAvatar){
+			return $q(function(resolve, reject) {
+				setTimeout(function() {
+					console.log("timeout off");
+					var message_json = {
+						"who":"mibank",
+						"showavatar":showAvatar,
+						"value":message,
+						"type":"text"
+					};
+					$scope.messages.push(message_json);
+					$scope.sizeOfContent += 70;
+					$scope.$apply();
+					resolve('message appended');
+					setTimeout(function(){ 
+						jQuery(".scroll-content").scrollTop(3000);
+					},400);
+				}, 3000);
+			});
 		}
 
 		function capitalizeFirstLetter(string) {
@@ -271,7 +307,9 @@
 				sendTextMessage("cajero",$scope.currentLat,$scope.currentLong, false);
 			}else if (id == "3"){
 				$scope.sizeOfContent += 400;
-				appendBotTextMessage("Te entiendo, yo también prefiero no salir, además vivo dentro de tu celular. Las alternativas que puedes seleccionar son las siguientes:", true);
+
+				
+
 				var data = {};
 				console.log("este es el active group");
 				console.log($scope.activeGroup);
@@ -307,7 +345,13 @@
 						]
 					}
 				}
-				appendECard(data,false);
+				$scope.showWriting = true;
+				var promise = appendBotTextHelper("Te entiendo, yo también prefiero no salir, además vivo dentro de tu celular. Las alternativas que puedes seleccionar son las siguientes:", true);
+				promise.then(function(){
+					$scope.showWriting = false;
+					appendECard(data,false);
+				})
+				
 			}
 		}
 
@@ -333,14 +377,19 @@
 				console.log("success");
 				console.log(data);
 				if (data.status && "Data" in data.message.data){
+					var promise;
 					if(data.message.data.Data.type == "oficina"){
-						appendBotTextMessage("Ya sabemos lo que necesitas. Encontramos una sucursal muy cerca a tu ubicación, puede que te sirva:", showavatar);
+						promise = appendBotTextHelper("Ya sabemos lo que necesitas. Encontramos una sucursal muy cerca a tu ubicación, puede que te sirva:", showavatar);
 					}else if(data.message.data.Data.type == "cajero"){
-						appendBotTextMessage("Encontramos un cajero cercano. Mira, te mostramos más información:", showavatar);
+						promise = appendBotTextHelper("Encontramos un cajero cercano. Mira, te mostramos más información:", showavatar);
 					}else{
-						appendBotTextMessage("Encontré un corresponsal cercano. Te conseguí más información, mira:", showavatar);
+						promise = appendBotTextHelper("Encontré un corresponsal cercano. Te conseguí más información, mira:", showavatar);
 					}
-					appendATMCard(data.message,false);
+					$scope.showWriting = true;
+					promise.then(function(){
+						$scope.showWriting = false;
+						appendATMCard(data.message,false);
+					});
 				}else{
 
 					var group6 = ((message.match(/cheque/i)) ? true : false);
@@ -384,53 +433,85 @@
 					
 					if(group5){
 						$scope.activeGroup = 5;
-						appendBotTextMessage("Oh quieres retirar dinero! :O", true);
-						showGroup5();
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper("Oh quieres retirar dinero! :O", true);
+						promise.then(function(){
+							$scope.showWriting = false;
+							showGroup5();
+						});
 					}else if (group4){
 						$scope.activeGroup = 4;
-						appendBotTextMessage("OK "+ $stateParams.firstName +", según entiendo, quieres hacer una consignación. ¿Cómo quisieras proceder?", true);
-						showGroup4();
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper("OK "+ $stateParams.firstName +", según entiendo, quieres hacer una consignación. ¿Cómo quisieras proceder?", true);
+						promise.then(function(){
+							$scope.showWriting = false;
+							showGroup4();
+						});
 					}else if (group7){
 						$scope.activeGroup = 7;
 						appendBotTextMessage("Lo mejor para este tipo de operaciones es acercase directamente a una oficina.", true);
 						sendTextMessage("oficina",$scope.currentLat,$scope.currentLong, false);
 					}else if (group1){
 						$scope.activeGroup = 1;
-						appendBotTextMessage($stateParams.firstName +" para esto que necesitas tienes varias alternativas. Por favor selecciona la que mejor se ajusta para ti", true);
-						showGroup1();
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper($stateParams.firstName +" para esto que necesitas tienes varias alternativas. Por favor selecciona la que mejor se ajusta para ti", true);
+						promise.then(function(){
+							$scope.showWriting = false;
+							showGroup1();
+						});
 					}else if (group2){
 						$scope.activeGroup = 2;
-						appendBotTextMessage("OK. Pues, las operaciones de apertura, eliminaciones y actualizaciones es mejor hacerlas en sucursales o en línea. Por favor selecciona lo que prefieras.", true);
-						showGroup2();
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper("OK. Las operaciones de apertura, eliminaciones y actualizaciones es mejor hacerlas en sucursales o en línea. Por favor selecciona lo que prefieras.", true);
+						promise.then(function(){
+							$scope.showWriting = false;
+							showGroup2();
+						});
 					}else if (group3){
 						$scope.activeGroup = 3;
-						appendBotTextMessage("Bueno "+ $stateParams.firstName +", mi recomendación para las operaciones de recarga es que lo hagas por medio de la línea telefónica. Ya te doy más detalles." , true);
-						data = {
-							"services":[
-							{"code":"4", "value":"phone"}
-							]
-						}	
-						appendECard(data,false);
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper("Bueno "+ $stateParams.firstName +", mi recomendación para las operaciones de recarga es que lo hagas por medio de la línea telefónica. Ya te doy más detalles." , true);
+						promise.then(function(){
+							$scope.showWriting = false;
+							data = {
+								"services":[
+								{"code":"4", "value":"phone"}
+								]
+							}	
+							appendECard(data,false);
+						});
 					}else if (group6){
 						$scope.activeGroup = 6;
-						appendBotTextMessage("Entiendo tu pregunta. Ahora cuéntame un poco más para dar una solución adecuada.", true);
-						showGroup6();
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper("Entiendo tu pregunta. Ahora cuéntame un poco más para dar una solución adecuada.", true);
+						
+						promise.then(function(){
+							$scope.showWriting = false;
+							showGroup6();
+						});
 					}else if (group8){
 						$scope.activeGroup = 8;
-						appendBotTextMessage("Todo lo relacionado con avances puedes manejarlo por muchos canales. Dime con cuál de las siguientes opciones te sientes mejor.", true);
-						showGroup8();
+						$scope.showWriting = true;
+						var promise = appendBotTextHelper("Todo lo relacionado con avances puedes manejarlo por muchos canales. Dime con cuál de las siguientes opciones te sientes mejor.", true);
+						
+						promise.then(function(){
+							$scope.showWriting = false;
+							showGroup8();
+						});
 					}else{
+						
 						appendBotTextMessage("Lo siento, cada día me entreno para ser mejor, pero esta vez no podré responder esa pregunta. :(", true);
+						
 					}
 
 				}
 
 			}).
-			error(function(data, status, headers, config) 
-			{
-				console.log("error");
-				console.log(data);
-			});
-		}
-
+	error(function(data, status, headers, config) 
+	{
+		console.log("error");
+		console.log(data);
 	});
+}
+
+});

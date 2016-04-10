@@ -40,7 +40,7 @@
 
 				float: right;
 				width: 34px;
-    			border-left: 1px solid rgba(255,255,255,0.2);
+				border-left: 1px solid rgba(255,255,255,0.2);
 				position: relative;
 				top: -2px;
 			}
@@ -102,13 +102,13 @@
     //background-color: rgba(51, 51, 50, 0.23);
     opacity: 1;
     background: rgba(56,33,61,0.63);
-background: -moz-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
-background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(56,33,61,0.63)), color-stop(100%, rgba(26,50,79,0.77)));
-background: -webkit-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
-background: -o-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
-background: -ms-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
-background: linear-gradient(to bottom, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38213d', endColorstr='#1a324f', GradientType=0 );
+    background: -moz-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(56,33,61,0.63)), color-stop(100%, rgba(26,50,79,0.77)));
+    background: -webkit-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
+    background: -o-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
+    background: -ms-linear-gradient(top, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
+    background: linear-gradient(to bottom, rgba(56,33,61,0.63) 0%, rgba(26,50,79,0.77) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38213d', endColorstr='#1a324f', GradientType=0 );
 }
 }
 
@@ -249,6 +249,68 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#38213d', end
 	padding: 0;
 	height: 60px;
 }
+
+.writing-icon-div{
+    position: absolute;
+    top: -37px;
+    left: 20px;
+
+	.typing-indicator {
+		$ti-color-bg: #7E6DE8;
+		background-color: $ti-color-bg;
+		width: auto;
+		border-radius: 50px;
+		padding: 7px;
+		display: table;
+		margin: 0 auto;
+		position: relative;
+		animation: 2s bulge infinite ease-out;
+		&:before, &:after {
+			content: '';
+			position: absolute;
+			bottom: -2px;
+			left: -2px;
+			height: 10px;
+			width: 10px;
+			border-radius: 50%;
+			background-color: $ti-color-bg;
+		}
+		&:after {
+			height: 5px;
+			width: 5px;
+			left: -6px;
+			bottom: -6px;
+		}
+		span {
+			height: 6px;
+			width: 6px;
+			float: left;
+			margin: 0 1px;
+			background-color: #ffffff;
+			display: block;
+			border-radius: 50%;
+			opacity: 0.4;
+			@for $i from 1 through 3 {
+				&:nth-of-type(#{$i}){
+					animation: 1s blink infinite ($i * .3333s);
+				}
+			}
+		}
+	}
+	@keyframes blink{
+		50% {
+			opacity: 1;
+		}
+	}
+	@keyframes bulge{
+		50% {
+			transform: scale(1.05);
+		}
+	}
+}
+
+
+
 .chat-input-div{
 	width: 100%;
 	height: 100%;
