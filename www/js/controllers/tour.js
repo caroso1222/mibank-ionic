@@ -35,7 +35,6 @@ angular.module('starter.controllers')
 			$state.go("chat");
 		}
 
-
 // 	$http.get('https://cors-test.appspot.com/test').then(function(resp) {
 // 		console.log('Success', resp);
 //     // For JSON responses, resp.data contains the result

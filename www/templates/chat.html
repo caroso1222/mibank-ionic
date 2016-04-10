@@ -8,15 +8,44 @@
         <span class = "msg-mibank">{{message.value}}</span>
       </div>
       <div ng-if = "message.type == 'multioption'" >
-
         <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
         <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
         <div class = "multioption-div">
-        <span class = "lbl">Selecciona alguna de las opciones</span>
-        <button ng-repeat = "option in message.value" class = "option">
-          {{option.value}}
-        </button>
-          
+          <span class = "lbl">Selecciona alguna de las opciones</span>
+          <button ng-repeat = "option in message.value" class = "option">
+            {{option.value}}
+          </button>
+        </div>
+      </div>
+      <div ng-if = "message.type == 'card'">
+        <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
+        <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
+        <div class = "card-div">
+          <div class = "atm-img-div">
+            <div class = "inner">
+            <div class = "overlay"></div>
+              <img src="img/sucursal.jpg">
+            </div>
+            <div class = "circle-bank">
+              <img src="img/bancolombia.png">
+            </div>
+            <div class = "img-info">
+              <span class = "type">Sucursal</span>
+              <span class = "name">Viva Palmas</span>
+              <span class = "direccion">Calle 100 #9A - 45</span>
+            </div>
+          </div>
+          <div class = "atm-info">
+
+          <h5>Horario</h5>
+          <h6>Lunes a Viernes: 09:00 - 15:00</h6>
+
+          <div class = "footer-info">
+            <span class = "cierra">Cierra en 03:28 hrs</span>
+            <span class = "waze"><i class = "icon ion-navigate"></i></span>
+          </div>
+            
+          </div>
         </div>
         
       </div>

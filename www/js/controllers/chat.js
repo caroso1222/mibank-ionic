@@ -12,16 +12,17 @@ angular.module('starter.controllers')
 	$scope.messages = [];
 	console.log("chat ctrl loaded");
 	appendBotTextMessage("Hola. Pregúntame lo que sea.",true);
+	//appendATMCard(false);
 
-	appendMultioptionQuestion(false);
-	appendUserMessage("Hola",true);
+	//appendMultioptionQuestion(false);
+	//appendUserMessage("Hola",true);
 
 
 	$scope.newUserMessage = function(){
 		appendUserMessage($scope.input.chat, true);
+		sendTextMessage($scope.input.chat);
 		$scope.input.chat = "";
-		//sendTextMessage($scope.input.chat);
-		appendMultioptionQuestion(true);
+		//appendMultioptionQuestion(true);
 	}
 
 	function appendMultioptionQuestion(showAvatar){
@@ -41,6 +42,34 @@ angular.module('starter.controllers')
 			"type":"multioption"
 		};
 		$scope.messages.push(message_json);
+	}
+
+	function appendATMCard(data,showAvatar){
+		var messageReceived = {
+			"card": {
+				"Type": "CHANNEL_TYPE",
+				"data": {
+					"Id": 0,
+					"type": "oficina",
+					"name": "",
+					"lat": "",
+					"lng": "",
+					"city": "",
+					"bank_id": 0,
+					"url_image": ""
+				}
+			},
+			"status": true
+		}
+
+		var message_json = {
+			"who":"mibank",
+			"showavatar":showAvatar,
+			"value":data.card.data,
+			"type":"card"
+		};
+		$scope.messages.push(message_json);
+
 	}
 
 	function appendUserMessage(message, showAvatar){
@@ -69,6 +98,8 @@ angular.module('starter.controllers')
 			"long":"-31.22331"
 		};
 
+		console.log(json_data);
+
 		var req = {
 			method: 'POST',
 			url: 'http://104.236.93.10:8000/api/v1/bot/proccess',
@@ -81,7 +112,13 @@ angular.module('starter.controllers')
 		{
 			console.log("success");
 			console.log(data);
+			if (data.status){
+				appendBotTextMessage("La sucursal más cerca está en Viva Palmas. Mira te mostramos más información:", true);
+				appendATMCard(data,false);
+			}else{
 			appendBotTextMessage(data.message, true);
+
+			}
 
 		}).
 		error(function(data, status, headers, config) 

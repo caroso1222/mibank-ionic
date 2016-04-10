@@ -58,6 +58,105 @@
 
 .chat-div {
   background-color: #f0f0f0; }
+  .chat-div .card-div {
+    background-color: #ECECEC;
+    display: inline-block;
+    max-width: 80%;
+    border-radius: 0px 0px 4px 4px;
+    -webkit-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.37);
+    -moz-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.37);
+    box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.37); }
+    .chat-div .card-div .atm-img-div {
+      position: relative; }
+      .chat-div .card-div .atm-img-div .img-info {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        bottom: 35px;
+        text-align: center;
+        color: white;
+        font-weight: 600; }
+        .chat-div .card-div .atm-img-div .img-info span {
+          display: block; }
+        .chat-div .card-div .atm-img-div .img-info .name {
+          font-size: 18px;
+          font-weight: 800; }
+        .chat-div .card-div .atm-img-div .img-info .direccion {
+          font-size: 11px;
+          font-weight: 600;
+          opacity: 0.9; }
+      .chat-div .card-div .atm-img-div .inner {
+        height: 135px;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 3px; }
+        .chat-div .card-div .atm-img-div .inner .overlay {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background-color: #333333;
+          border-radius: 3px 3px 0px 0px;
+          opacity: 0.4;
+          background: rgba(128, 83, 213, 0.35);
+          background: -moz-linear-gradient(top, rgba(128, 83, 213, 0.35) 0%, #6d4de0 100%);
+          background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(128, 83, 213, 0.35)), color-stop(100%, #6d4de0));
+          background: -webkit-linear-gradient(top, rgba(128, 83, 213, 0.35) 0%, #6d4de0 100%);
+          background: -o-linear-gradient(top, rgba(128, 83, 213, 0.35) 0%, #6d4de0 100%);
+          background: -ms-linear-gradient(top, rgba(128, 83, 213, 0.35) 0%, #6d4de0 100%);
+          background: linear-gradient(to bottom, rgba(128, 83, 213, 0.35) 0%, #6d4de0 100%);
+          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8053d5', endColorstr='#6d4de0', GradientType=0 ); }
+      .chat-div .card-div .atm-img-div .circle-bank {
+        height: 50px;
+        width: 50px;
+        background-color: white;
+        position: absolute;
+        border-radius: 50%;
+        bottom: -23px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        -webkit-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.23);
+        -moz-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.23); }
+        .chat-div .card-div .atm-img-div .circle-bank img {
+          position: relative;
+          top: 14px;
+          left: 10px; }
+    .chat-div .card-div .atm-info {
+      text-align: center;
+      padding-top: 25px; }
+      .chat-div .card-div .atm-info h5 {
+        font-weight: 600;
+        color: #595959; }
+      .chat-div .card-div .atm-info h6 {
+        font-size: 11px;
+        font-weight: 600;
+        color: #767676;
+        margin-top: -5px; }
+      .chat-div .card-div .atm-info .footer-info {
+        background-color: transparent;
+        border-top: 1px solid #cfc9c9;
+        height: 38px;
+        position: relative; }
+        .chat-div .card-div .atm-info .footer-info .cierra {
+          color: #7E6DE8;
+          position: absolute;
+          left: 16px;
+          top: 9px;
+          font-weight: 600;
+          font-size: 13px; }
+        .chat-div .card-div .atm-info .footer-info .waze {
+          float: right;
+          border-left: 1px solid #CFC9C9;
+          height: 36px;
+          padding-top: 10px;
+          width: 43px; }
+          .chat-div .card-div .atm-info .footer-info .waze i {
+            color: #7E6DE8;
+            font-size: 20px; }
   .chat-div .scroll-bar-v {
     display: none; }
   .chat-div .scroll {
@@ -158,6 +257,8 @@
       border-radius: 3px;
       padding: 5px;
       font-weight: 600;
+      float: left;
+      min-height: 90px;
       position: relative; }
       .chat-div .multioption-div .option:focus, .chat-div .multioption-div .option:active {
         border-bottom: 2px solid #1D956D;
