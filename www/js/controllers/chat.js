@@ -24,6 +24,7 @@
 		$scope.scrollable = false;
 		$scope.currentLat = "";
 		$scope.currentLong = "";
+		$scope.activeGroup = 0;
 
 		var options = {
 			location: 'yes',
@@ -95,7 +96,7 @@
 			var message_json = {
 				"who":"mibank",
 				"showavatar":showAvatar,
-				"value":messageReceived,
+				"value":data,
 				"type":"eCard"
 			};
 			$scope.messages.push(message_json);
@@ -120,15 +121,15 @@
 				"status": true
 			}
 
-			var url = data.card.Data.url_image;
+			var url = data.data.Data.url_image;
 			url = url.replace(/\\/g, "");
-			data.card.Data.url_image = url;
+			data.data.Data.url_image = url;
 
-			var type = data.card.Data.type;
+			var type = data.data.Data.type;
 			type = capitalizeFirstLetter(type);
-			data.card.Data.type = type;
+			data.data.Data.type = type;
 
-			var address = data.card.Data.address;
+			var address = data.data.Data.address;
 			address = address.replace("BOGOTA","");
 			address = address.replace("BOGOTÁ","");
 			address = address.replace("Bogotá","");
@@ -136,16 +137,16 @@
 			address = address.replace("COLOMBIA","");
 			address = address.replace("COlOMBIA","");
 			address = address.replace("Colombia","");
-			data.card.Data.address = address;
+			data.data.Data.address = address;
 
-			var name = data.card.Data.name;
+			var name = data.data.Data.name;
 			name = toTitleCase(name);
-			data.card.Data.name = name;
+			data.data.Data.name = name;
 
 			var message_json = {
 				"who":"mibank",
 				"showavatar":showAvatar,
-				"value":data.card.Data,
+				"value":data.data.Data,
 				"type":"card"
 			};
 			$scope.messages.push(message_json);
@@ -204,12 +205,57 @@
 			appendMultioptionQuestion(data,false);
 		}
 
+		function showGroup6(){
+			var data = {
+				"buttons":[
+				{ "code":"1", "value":"Que alguien confiable me ayude" },
+				{ "code":"3", "value":"Que no necesite moverme de donde estoy" }
+				]	
+			}
+			appendMultioptionQuestion(data,false);
+		}
+
+		function showGroup8(){
+			var data = {
+				"buttons":[
+				{ "code":"1", "value":"Que alguien confiable me ayude" },
+				{ "code":"2", "value":"Que alguien me ayude ahorrando tiempo" },
+				{ "code":"3", "value":"Que no necesite moverme de donde estoy" },
+				{ "code":"4", "value":"Solo quiero un cajero y ya" }
+				]	
+			}
+			appendMultioptionQuestion(data,false);
+		}
+
 
 		function showGroup4(){
 			var data = {
 				"buttons":[
 				{ "code":"1", "value":"Que alguien confiable me ayude" },
 				{ "code":"2", "value":"Que alguien me ayude ahorrando tiempo" }
+				]	
+			}
+			appendMultioptionQuestion(data,false);
+		}
+
+		function showGroup1(){
+			var data = {
+				"buttons":[
+				{ "code":"1", "value":"Que alguien confiable me ayude" },
+				{ "code":"2", "value":"Que alguien me ayude ahorrando tiempo" },
+				{ "code":"3", "value":"Que no necesite moverme de donde estoy" },
+				{ "code":"4", "value":"Solo necesito un cajero y ya" },
+				]	
+			}
+			appendMultioptionQuestion(data,false);
+		}
+
+
+		function showGroup2(){
+			var data = {
+				"buttons":[
+				{ "code":"1", "value":"Que alguien confiable me ayude" },
+				{ "code":"3", "value":"Que no necesite moverme de donde estoy" }
 				]	
 			}
 			appendMultioptionQuestion(data,false);
@@ -223,6 +269,45 @@
 				sendTextMessage("corresponsal",$scope.currentLat,$scope.currentLong, false);
 			}else if (id == "4"){
 				sendTextMessage("cajero",$scope.currentLat,$scope.currentLong, false);
+			}else if (id == "3"){
+				$scope.sizeOfContent += 400;
+				appendBotTextMessage("Te entiendo, yo también prefiero no salir, además vivo dentro de tu celular. Las alternativas que puedes seleccionar son las siguientes:", true);
+				var data = {};
+				console.log("este es el active group");
+				console.log($scope.activeGroup);
+				if ($scope.activeGroup == 1){
+					data = {
+						"services":[
+						{"code":"1", "value":"browser"},
+						{"code":"2", "value":"android"},
+						{"code":"3", "value":"iOS"},
+						{"code":"4", "value":"phone"}
+						]
+					}
+				}else if ($scope.activeGroup == 2){
+					data = {
+						"services":[
+						{"code":"1", "value":"browser"},
+						{"code":"4", "value":"phone"}
+						]
+					}
+				}else if ($scope.activeGroup == 6){
+					data = {
+						"services":[
+						{"code":"1", "value":"browser"},
+						{"code":"2", "value":"android"},
+						{"code":"3", "value":"iOS"},
+						{"code":"4", "value":"phone"}
+						]
+					}
+				}else if ($scope.activeGroup == 8){
+					data = {
+						"services":[
+						{"code":"1", "value":"browser"}
+						]
+					}
+				}
+				appendECard(data,false);
 			}
 		}
 
@@ -247,14 +332,42 @@
 			{
 				console.log("success");
 				console.log(data);
-				if (data.status){
-					if(data.card.Data.type == "oficina"){
+				if (data.status && "Data" in data.message.data){
+					if(data.message.data.Data.type == "oficina"){
 						appendBotTextMessage("Ya sabemos lo que necesitas. Encontramos una sucursal muy cerca a tu ubicación, puede que te sirva:", showavatar);
-					}else{
+					}else if(data.message.data.Data.type == "cajero"){
 						appendBotTextMessage("Encontramos un cajero cercano. Mira, te mostramos más información:", showavatar);
+					}else{
+						appendBotTextMessage("Encontré un corresponsal cercano. Te conseguí más información, mira:", showavatar);
 					}
-					appendATMCard(data,false);
+					appendATMCard(data.message,false);
 				}else{
+
+					var group6 = ((message.match(/cheque/i)) ? true : false);
+					group6 = group6 || ((message.match(/inscripci/i)) ? true : false);
+					group6 = group6 || ((message.match(/inscrib/i)) ? true : false);
+					group6 = group6 || ((message.match(/alert/i)) ? true : false);
+					group6 = group6 || ((message.match(/notifica/i)) ? true : false);
+					group6 = group6 || ((message.match(/bloque/i)) ? true : false);
+					group6 = group6 || ((message.match(/modific/i)) ? true : false);
+
+					var group2 = ((message.match(/elimin/i)) ? true : false);
+					group2 = group2 || ((message.match(/borr/i)) ? true : false);
+					group2 = group2 || ((message.match(/solicit/i)) ? true : false);
+					group2 = group2 || ((message.match(/apertur/i)) ? true : false);
+					group2 = group2 || ((message.match(/abr/i)) ? true : false);
+					group2 = group2 || ((message.match(/desembols/i)) ? true : false);
+					group2 = group2 || ((message.match(/activar/i)) ? true : false);
+					group2 = group2 || ((message.match(/actualiz/i)) ? true : false);
+
+					var group1 = ((message.match(/consult/i)) ? true : false);
+					group1 = group1 || ((message.match(/pagar/i)) ? true : false);
+					group1 = group1 || ((message.match(/transfer/i)) ? true : false);
+					group1 = group1 || ((message.match(/transfier/i)) ? true : false);
+					group1 = group1 || ((message.match(/move/i)) ? true : false);
+					group1 = group1 || ((message.match(/pasa/i)) ? true : false);
+					group1 = group1 || ((message.match(/pasó/i)) ? true : false);
+
 					var group5 = ((message.match(/retir/i)) ? true : false);
 					group5 = group5 || ((message.match(/sacar/i)) ? true : false);
 
@@ -262,22 +375,52 @@
 					group4 = group4 || ((message.match(/depósit/i)) ? true : false);
 					group4 = group4 || ((message.match(/consign/i)) ? true : false);
 
-
 					var group7 = ((message.match(/cancel/i)) ? true : false);
 					group7 = group7 || ((message.match(/termin/i)) ? true : false);
+
+					var group3 = ((message.match(/recarg/i)) ? true : false);
+
+					var group8 = ((message.match(/avance/i)) ? true : false);
 					
 					if(group5){
+						$scope.activeGroup = 5;
 						appendBotTextMessage("Oh quieres retirar dinero! :O", true);
 						showGroup5();
 					}else if (group4){
+						$scope.activeGroup = 4;
 						appendBotTextMessage("OK "+ $stateParams.firstName +", según entiendo, quieres hacer una consignación. ¿Cómo quisieras proceder?", true);
 						showGroup4();
 					}else if (group7){
+						$scope.activeGroup = 7;
 						appendBotTextMessage("Lo mejor para este tipo de operaciones es acercase directamente a una oficina.", true);
 						sendTextMessage("oficina",$scope.currentLat,$scope.currentLong, false);
+					}else if (group1){
+						$scope.activeGroup = 1;
+						appendBotTextMessage($stateParams.firstName +" para esto que necesitas tienes varias alternativas. Por favor selecciona la que mejor se ajusta para ti", true);
+						showGroup1();
+					}else if (group2){
+						$scope.activeGroup = 2;
+						appendBotTextMessage("OK. Pues, las operaciones de apertura, eliminaciones y actualizaciones es mejor hacerlas en sucursales o en línea. Por favor selecciona lo que prefieras.", true);
+						showGroup2();
+					}else if (group3){
+						$scope.activeGroup = 3;
+						appendBotTextMessage("Bueno "+ $stateParams.firstName +", mi recomendación para las operaciones de recarga es que lo hagas por medio de la línea telefónica. Ya te doy más detalles." , true);
+						data = {
+							"services":[
+							{"code":"4", "value":"phone"}
+							]
+						}	
+						appendECard(data,false);
+					}else if (group6){
+						$scope.activeGroup = 6;
+						appendBotTextMessage("Entiendo tu pregunta. Ahora cuéntame un poco más para dar una solución adecuada.", true);
+						showGroup6();
+					}else if (group8){
+						$scope.activeGroup = 8;
+						appendBotTextMessage("Todo lo relacionado con avances puedes manejarlo por muchos canales. Dime con cuál de las siguientes opciones te sientes mejor.", true);
+						showGroup8();
 					}else{
 						appendBotTextMessage("Lo siento, cada día me entreno para ser mejor, pero esta vez no podré responder esa pregunta. :(", true);
-
 					}
 
 				}
