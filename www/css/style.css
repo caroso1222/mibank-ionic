@@ -61,7 +61,7 @@
   .chat-div .card-div {
     background-color: #ECECEC;
     display: inline-block;
-    max-width: 80%;
+    width: 80%;
     border-radius: 0px 0px 4px 4px;
     -webkit-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.37);
     -moz-box-shadow: 0px 10px 38px -6px rgba(0, 0, 0, 0.37);

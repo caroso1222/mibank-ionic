@@ -12,7 +12,7 @@
         <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
         <div class = "multioption-div">
           <span class = "lbl">Selecciona alguna de las opciones</span>
-          <button ng-repeat = "option in message.value" class = "option">
+          <button ng-repeat = "option in message.value" class = "option" ng-click = "sendMultioption({{option.code}})">
             {{option.value}}
           </button>
         </div>
@@ -41,7 +41,7 @@
           <h6>Lunes a Viernes: 09:00 - 15:00</h6>
 
           <div class = "footer-info">
-            <span class = "cierra">Cierra en 03:28 hrs</span>
+            <span class = "cierra">{{message.value.type}} Bancolombia</span>
             <span class = "waze"><i class = "icon ion-navigate"></i></span>
           </div>
             

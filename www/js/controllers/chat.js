@@ -21,33 +21,30 @@
 
 		$scope.sizeOfContent = 0;
 		$scope.scrollable = false;
+		$scope.currentLat = "";
+		$scope.currentLong = "";
+
 
 		$scope.newUserMessage = function(){
 			if($scope.input.chat != ""){
 				appendUserMessage($scope.input.chat, true);
-				
-				
-
-
 				var posOptions = {timeout: 10000, enableHighAccuracy: false};
 				$cordovaGeolocation
 				.getCurrentPosition(posOptions)
 				.then(function (position) {
-					var lat  = position.coords.latitude
-					var long = position.coords.longitude
-					sendTextMessage($scope.input.chat,lat,long);
+					var lat  = position.coords.latitude;
+					var long = position.coords.longitude;
+					$scope.currentLat = lat + "";
+					$scope.currentLong = long+ "";
+					sendTextMessage($scope.input.chat,lat,long, true);
 					$scope.input.chat = "";	
 				}, function(err) {
 					console.log("theres an error");
 				});
-
-
-
-
 			}
 		}
 
-		function appendMultioptionQuestion(showAvatar){
+		function appendMultioptionQuestion(data,showAvatar){
 			var messageReceived = {
 				"buttons":[
 				{ "code":"1", "value":"Que alguien confiable me ayude" },
@@ -60,7 +57,7 @@
 			var message_json = {
 				"who":"mibank",
 				"showavatar":showAvatar,
-				"value":messageReceived.buttons,
+				"value":data.buttons,
 				"type":"multioption"
 			};
 			$scope.messages.push(message_json);
@@ -84,7 +81,6 @@
 				},
 				"status": true
 			}
-
 
 			var url = data.card.Data.url_image;
 			url = url.replace(/\\/g, "");
@@ -155,13 +151,46 @@
 		}
 
 		function toTitleCase(str)
-{
-    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
+		{
+			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		}
 
-		function sendTextMessage(message, lat, long){
+		function showGroup5(){
+			var data = {
+				"buttons":[
+				{ "code":"1", "value":"Que alguien confiable me ayude" },
+				{ "code":"2", "value":"Que alguien me ayude ahorrando tiempo" },
+				{ "code":"4", "value":"Solo quiero un cajero y ya" }
+				]	
+			}
+			appendMultioptionQuestion(data,false);
+		}
+
+
+		function showGroup4(){
+			var data = {
+				"buttons":[
+				{ "code":"1", "value":"Que alguien confiable me ayude" },
+				{ "code":"2", "value":"Que alguien me ayude ahorrando tiempo" }
+				]	
+			}
+			appendMultioptionQuestion(data,false);
+		}
+
+		$scope.sendMultioption = function(id){
+			console.log("go for it");
+			if (id == "1"){
+				sendTextMessage("oficina",$scope.currentLat,$scope.currentLong, false);
+			}else if (id == "2"){
+				sendTextMessage("corresponsal",$scope.currentLat,$scope.currentLong, false);
+			}else if (id == "4"){
+				sendTextMessage("cajero",$scope.currentLat,$scope.currentLong, false);
+			}
+		}
+
+		function sendTextMessage(message, lat, long, showavatar){
 			var json_data = {
-				"text":$scope.input.chat,
+				"text":message,
 				"lat":lat+'',
 				"lng":long+''
 			};
@@ -181,10 +210,38 @@
 				console.log("success");
 				console.log(data);
 				if (data.status){
-					appendBotTextMessage("La sucursal más cerca está en Viva Palmas. Mira te mostramos más información:", true);
+					if(data.card.Data.type == "oficina"){
+						appendBotTextMessage("Ya sabemos lo que necesitas. Encontramos una sucursal muy cerca a tu ubicación, puede que te sirva:", showavatar);
+					}else{
+						appendBotTextMessage("Encontramos un cajero cercano. Mira, te mostramos más información:", showavatar);
+					}
 					appendATMCard(data,false);
 				}else{
-					appendBotTextMessage("Lo siento, cada día me entreno para ser mejor, pero esta vez no sé responder esa pregunta. :(", true);
+					var group5 = ((message.match(/retir/i)) ? true : false);
+					group5 = group5 || ((message.match(/sacar/i)) ? true : false);
+
+
+					var group4 = ((message.match(/deposit/i)) ? true : false);
+					group4 = group4 || ((message.match(/depósit/i)) ? true : false);
+					group4 = group4 || ((message.match(/consign/i)) ? true : false);
+
+
+					var group7 = ((message.match(/cancel/i)) ? true : false);
+					group7 = group7 || ((message.match(/termin/i)) ? true : false);
+					
+					if(group5){
+						appendBotTextMessage("Oh quieres retirar dinero! :O", true);
+						showGroup5();
+					}else if (group4){
+						appendBotTextMessage("OK "+ $stateParams.firstName +", según entiendo, quieres hacer una consignación. ¿Cómo quisieras proceder?", true);
+						showGroup4();
+					}else if (group7){
+						appendBotTextMessage("Lo mejor para este tipo de operaciones es acercase directamente a una oficina.", true);
+						sendTextMessage("oficina",$scope.currentLat,$scope.currentLong, false);
+					}else{
+						appendBotTextMessage("Lo siento, cada día me entreno para ser mejor, pero esta vez no podré responder esa pregunta. :(", true);
+
+					}
 
 				}
 
