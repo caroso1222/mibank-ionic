@@ -14,7 +14,7 @@
 		appendBotTextMessage("Hola "+ $stateParams.firstName +"! Pregúntame lo que sea.",true);
 		console.log("this is the name");
 		console.log($stateParams.firstName);
-		//appendATMCard(false);
+		appendECard("shidf",false);
 
 		//appendMultioptionQuestion(false);
 		//appendUserMessage("Hola",true);
@@ -59,6 +59,25 @@
 				"showavatar":showAvatar,
 				"value":data.buttons,
 				"type":"multioption"
+			};
+			$scope.messages.push(message_json);
+			$scope.sizeOfContent += 252;
+		}
+
+		function appendECard(data,showAvatar){
+			var messageReceived = {
+				"services":[
+				{"code":"1", "value":"browser"},
+				{"code":"2", "value":"android"},
+				{"code":"3", "value":"iOS"},
+				{"code":"4", "value":"phone"}
+				]
+			}
+			var message_json = {
+				"who":"mibank",
+				"showavatar":showAvatar,
+				"value":messageReceived,
+				"type":"eCard"
 			};
 			$scope.messages.push(message_json);
 			$scope.sizeOfContent += 252;

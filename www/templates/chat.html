@@ -17,13 +17,14 @@
           </button>
         </div>
       </div>
+
       <div ng-if = "message.type == 'card'">
         <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
         <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
         <div class = "card-div">
           <div class = "atm-img-div">
             <div class = "inner">
-            <div class = "overlay"></div>
+              <div class = "overlay"></div>
               <img ng-src={{message.value.url_image}}>
             </div>
             <div class = "circle-bank">
@@ -36,19 +37,57 @@
             </div>
           </div>
           <div class = "atm-info">
-
-          <h5>Horario</h5>
-          <h6>Lunes a Viernes: 09:00 - 15:00</h6>
-
-          <div class = "footer-info">
-            <span class = "cierra">{{message.value.type}} Bancolombia</span>
-            <span class = "waze"><i class = "icon ion-navigate"></i></span>
+            <h5>Horario</h5>
+            <h6>Lunes a Viernes: 09:00 - 15:00</h6>
+            <div class = "footer-info">
+              <span class = "cierra">{{message.value.type}} Bancolombia</span>
+              <span class = "waze"><i class = "icon ion-navigate"></i></span>
+            </div>
           </div>
-            
+        </div>
+      </div>
+
+      <div ng-if="message.type == 'eCard'">
+        <img ng-show = "{{message.showavatar}}" src="img/mibank-avatar.png">
+        <img ng-hide = "{{message.showavatar}}" src="img/no-avatar.png">
+        <div class = "card-div">
+          <div class = "atm-img-div">
+            <div class = "inner">
+              <div class = "overlay" style = "opacity: 0.6;"></div>
+              <img src="img/ecard.jpg">
+            </div>
+            <div class = "circle-bank">
+              <img src="img/bancolombia.png">
+            </div>
+            <div class = "img-info">
+              <span class = "name" style = "position: relative; top: -15px;">Bancolombia</span>
+              <span class = "direccion">{{message.value.address}}</span>
+            </div>
+          </div>
+          <div class = "atm-info">
+            <div class = "btn-ecard-div" ng-repeat = "channel in message.value.services">
+              <a href = "https://sucursalpersonas.transaccionesbancolombia.com/mua/USER#no-back-button" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'browser'">
+                <span class = "title">Sucursal virtual</span>
+                <span class = "icon-div"><i class ="icon ion-ios-world"></i> </span>
+              </a>
+              <a href ="https://play.google.com/store/apps/details?id=com.todo1.mobile&hl=es_419" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
+                <span class = "title">Android</span>
+                <span class = "icon-div"><i class ="icon ion-social-android"></i> </span>
+              </a>
+              <a href ="https://itunes.apple.com/co/app/bancolombia-app/id565101003?mt=8" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
+                <span class = "title">iOS</span>
+                <span class = "icon-div"><i class ="icon ion-social-apple"></i> </span>
+              </a>
+              <a href="tel:01800 09 12345" class = "btn-ecard btn-dropshadow" ng-show = "channel.value == 'android'">
+                <span class = "title">Teléfono</span>
+                <span class = "icon-div"><i class ="icon ion-ios-telephone"></i> </span>
+              </a>
+            </div>
           </div>
         </div>
         
       </div>
+
     </div>
     <div ng-if = "message.who == 'user'" class = "msg-user-div">
       <span class = "msg-user">{{message.value}}</span>
